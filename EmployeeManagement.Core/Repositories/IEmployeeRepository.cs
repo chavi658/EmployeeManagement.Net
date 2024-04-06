@@ -10,9 +10,9 @@ namespace EmployeeManagement.Core.Repositories
     public interface IEmployeeRepository
     {
         public Task<List<Employee>> GetEmployeesAsync();
-        public Task<Employee> GetEmployeeByIdAsync(int EmployeeId);
+        public Task<Employee> GetEmployeeByIdAsync(int Id);
         public Task AddEmployeeAsync(Employee employee);
-        public  Task UpdateEmployeeAsync(int EmployeeId, Employee employee);
-        public Task DeleteEmployeeAsync(int EmployeeId);
+        public  Task UpdateEmployeeAsync(int Id, Employee employee);
+        public Task DeleteEmployeeAsync(int Id);
     }
 }

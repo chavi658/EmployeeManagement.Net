@@ -13,10 +13,10 @@ namespace EmployeeManagement.Core.Entities
     }
     public class Employee
     {
-
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
         public DateTime DateOfStartingWork { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }

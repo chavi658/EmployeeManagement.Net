@@ -7,7 +7,7 @@ namespace EmployeeManagement.Api.NewFolder2
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-       
+        public string EmployeeId { get; set; }
         public DateTime DateOfStartingWork { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }

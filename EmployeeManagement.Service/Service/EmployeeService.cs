@@ -21,21 +21,21 @@ namespace EmployeeManagement.Service.Service
         {
             return  await _employeeRepository.GetEmployeesAsync();
         }
-        public async Task<Employee> GetByIdAsync(int EmployeeId)
+        public async Task<Employee> GetByIdAsync(int Id)
         {
-            return  await  _employeeRepository.GetEmployeeByIdAsync(EmployeeId);
+            return  await  _employeeRepository.GetEmployeeByIdAsync(Id);
         }
         public async Task AddEmployeeAsync(Employee employee)
         {
          await   _employeeRepository.AddEmployeeAsync(employee);
         }
-        public async Task UpdateEmployeeAsync(int EmployeeId, Employee employee)
+        public async Task UpdateEmployeeAsync(int Id, Employee employee)
         {
-          await  _employeeRepository.UpdateEmployeeAsync(EmployeeId, employee);
+          await  _employeeRepository.UpdateEmployeeAsync(Id, employee);
         }
-        public async Task DeleteEmployeeAsync(int EmployeeId)
+        public async Task DeleteEmployeeAsync(int Id)
         {
-           await _employeeRepository.DeleteEmployeeAsync(EmployeeId);
+           await _employeeRepository.DeleteEmployeeAsync(Id);
         }
     }
 }

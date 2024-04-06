@@ -24,17 +24,21 @@ namespace EmployeeManagement.Data.Migrations
 
             modelBuilder.Entity("EmployeeManagement.Core.Entities.Employee", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateOfStartingWork")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -50,7 +54,7 @@ namespace EmployeeManagement.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EmployeeId");
+                    b.HasKey("Id");
 
                     b.ToTable("Employees");
                 });
@@ -66,8 +70,11 @@ namespace EmployeeManagement.Data.Migrations
                     b.Property<DateTime>("DateOfRoleEntry")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsManagerial")
+                        .HasColumnType("bit");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
@@ -80,8 +87,6 @@ namespace EmployeeManagement.Data.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("EmployeeRole");
                 });
 
@@ -92,9 +97,6 @@ namespace EmployeeManagement.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
-
-                    b.Property<bool>("IsManagerial")
-                        .HasColumnType("bit");
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -109,25 +111,12 @@ namespace EmployeeManagement.Data.Migrations
                 {
                     b.HasOne("EmployeeManagement.Core.Entities.Employee", null)
                         .WithMany("RoleList")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EmployeeManagement.Core.Entities.Role", null)
-                        .WithMany("EmployeeList")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeId");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Core.Entities.Employee", b =>
                 {
                     b.Navigation("RoleList");
-                });
-
-            modelBuilder.Entity("EmployeeManagement.Core.Entities.Role", b =>
-                {
-                    b.Navigation("EmployeeList");
                 });
 #pragma warning restore 612, 618
         }

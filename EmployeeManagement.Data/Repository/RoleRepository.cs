@@ -48,8 +48,7 @@ namespace EmployeeManagement.Data.Repository
         {
             var UpdateRole= await GetRoleByIdAsync(RoleId);
             UpdateRole.RoleName=role.RoleName;
-            UpdateRole.IsManagerial=role.IsManagerial;
-            Console.WriteLine(UpdateRole.RoleId);
+            //UpdateRole.IsManagerial=role.IsManagerial;
           await  _dataContext.SaveChangesAsync();
         }
     }

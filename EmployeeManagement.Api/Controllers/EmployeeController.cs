@@ -4,6 +4,7 @@ using EmployeeManagement.Core;
 using EmployeeManagement.Core.Entities;
 using EmployeeManagement.Core.NewFolder;
 using EmployeeManagement.Core.Services;
+using EmployeeManagement.Service.Service;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -58,7 +59,8 @@ namespace EmployeeManagement.Api.Controllers
         [HttpPost]
         public async Task Post([FromBody] EmployeePostModel value)
         {
-            var employeeToAdd = new Employee() { DateOfBirth = value.DateOfBirth, FirstName = value.FirstName, LastName = value.LastName, DateOfStartingWork = value.DateOfStartingWork, Gender = value.Gender };
+            var employeeToAdd = new Employee() { DateOfBirth = value.DateOfBirth, FirstName = value.FirstName, LastName = value.LastName, DateOfStartingWork = value.DateOfStartingWork, Gender = value.Gender,EmployeeId=value.EmployeeId,RoleList=value.RoleList };
+            await _employeeService.AddEmployeeAsync(employeeToAdd);
         }
 
         // PUT api/<EmployeeController>/5

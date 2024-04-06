@@ -5,7 +5,7 @@
 namespace EmployeeManagement.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class addRoleName : Migration
+    public partial class AddFieldInEmployeeRole : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

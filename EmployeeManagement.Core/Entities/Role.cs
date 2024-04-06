@@ -12,7 +12,7 @@ namespace EmployeeManagement.Core.Entities
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
-        public bool IsManagerial { get; set; }
-        public List<EmployeeRole> EmployeeList { get; set; }
+        //public bool IsManagerial { get; set; }
+        //public List<EmployeeRole> EmployeeList { get; set; }
     }
 }

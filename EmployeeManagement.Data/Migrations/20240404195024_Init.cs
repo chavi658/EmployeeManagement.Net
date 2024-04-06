@@ -15,10 +15,11 @@ namespace EmployeeManagement.Data.Migrations
                 name: "Employees",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmployeeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfStartingWork = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
@@ -26,7 +27,7 @@ namespace EmployeeManagement.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,32 +36,46 @@ namespace EmployeeManagement.Data.Migrations
                 {
                     RoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<int>(type: "int", nullable: false),
-                    IsManagerial = table.Column<bool>(type: "bit", nullable: false),
-                    DateOfRoleEntry = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmployeeId1 = table.Column<int>(type: "int", nullable: false)
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.RoleId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeRole",
+                columns: table => new
+                {
+                    EmployeeRoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    DateOfRoleEntry = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsManagerial = table.Column<bool>(type: "bit", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeRole", x => x.EmployeeRoleId);
                     table.ForeignKey(
-                        name: "FK_Roles_Employees_EmployeeId1",
-                        column: x => x.EmployeeId1,
+                        name: "FK_EmployeeRole_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
-                        principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Roles_EmployeeId1",
-                table: "Roles",
-                column: "EmployeeId1");
+                name: "IX_EmployeeRole_EmployeeId",
+                table: "EmployeeRole",
+                column: "EmployeeId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "EmployeeRole");
+
             migrationBuilder.DropTable(
                 name: "Roles");
 

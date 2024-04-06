@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240320223258_Init")]
-    partial class Init
+    [Migration("20240404195407_AddFieldInEmployeeRole")]
+    partial class AddFieldInEmployeeRole
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,17 +27,21 @@ namespace EmployeeManagement.Data.Migrations
 
             modelBuilder.Entity("EmployeeManagement.Core.Entities.Employee", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateOfStartingWork")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -53,9 +57,40 @@ namespace EmployeeManagement.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EmployeeId");
+                    b.HasKey("Id");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Core.Entities.EmployeeRole", b =>
+                {
+                    b.Property<int>("EmployeeRoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeRoleId"));
+
+                    b.Property<DateTime>("DateOfRoleEntry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsManagerial")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EmployeeRoleId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("EmployeeRole");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Core.Entities.Role", b =>
@@ -66,38 +101,20 @@ namespace EmployeeManagement.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
 
-                    b.Property<DateTime>("DateOfRoleEntry")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EmployeeId")
+                    b.Property<string>("RoleName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EmployeeId1")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsManagerial")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("RoleName")
-                        .HasColumnType("int");
-
                     b.HasKey("RoleId");
-
-                    b.HasIndex("EmployeeId1");
 
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("EmployeeManagement.Core.Entities.Role", b =>
+            modelBuilder.Entity("EmployeeManagement.Core.Entities.EmployeeRole", b =>
                 {
-                    b.HasOne("EmployeeManagement.Core.Entities.Employee", "Emp")
+                    b.HasOne("EmployeeManagement.Core.Entities.Employee", null)
                         .WithMany("RoleList")
-                        .HasForeignKey("EmployeeId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Emp");
+                        .HasForeignKey("EmployeeId");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Core.Entities.Employee", b =>

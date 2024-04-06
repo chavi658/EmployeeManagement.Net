@@ -24,9 +24,9 @@ namespace EmployeeManagement.Data.Repository
             await _dataContext.SaveChangesAsync();
         } 
 
-        public async Task DeleteEmployeeAsync(int EmployeeId)
+        public async Task DeleteEmployeeAsync(int Id)
         {
-            var  employeeToRemove = await GetEmployeeByIdAsync(EmployeeId);
+            var  employeeToRemove = await GetEmployeeByIdAsync(Id);
             if (employeeToRemove != null)
             {
                 employeeToRemove.IsActivate= false;
@@ -36,9 +36,9 @@ namespace EmployeeManagement.Data.Repository
             }
         }
 
-        public async Task<Employee> GetEmployeeByIdAsync(int EmployeeId)
+        public async Task<Employee> GetEmployeeByIdAsync(int Id)
         {
-            return  await  _dataContext.Employees.Include(x=>x.RoleList).FirstAsync(x=>x.EmployeeId==EmployeeId/*FindAsync(EmployeeId)*/);
+            return  await  _dataContext.Employees.Include(x=>x.RoleList).FirstAsync(x=>x.Id==Id/*FindAsync(EmployeeId)*/);
             
         }
 
@@ -56,6 +56,7 @@ namespace EmployeeManagement.Data.Repository
             UpdateEmployee.LastName = employee.LastName;
             UpdateEmployee.DateOfStartingWork = employee.DateOfStartingWork;
             UpdateEmployee.IsActivate= employee.IsActivate;
+            UpdateEmployee.EmployeeId = employee.EmployeeId;
             _dataContext.SaveChangesAsync();
         }
     }

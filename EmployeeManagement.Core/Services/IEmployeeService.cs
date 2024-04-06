@@ -10,9 +10,9 @@ namespace EmployeeManagement.Core.Services
     public interface IEmployeeService
     {
         public Task<List<Employee>> GetAllAsync();
-        public Task<Employee> GetByIdAsync(int EmployeeId);
+        public Task<Employee> GetByIdAsync(int Id);
         public Task AddEmployeeAsync (Employee employee);
-        public Task UpdateEmployeeAsync(int EmployeeId, Employee employee);
-        public Task DeleteEmployeeAsync(int EmployeeId);
+        public Task UpdateEmployeeAsync(int Id, Employee employee);
+        public Task DeleteEmployeeAsync(int Id);
     }
 }
