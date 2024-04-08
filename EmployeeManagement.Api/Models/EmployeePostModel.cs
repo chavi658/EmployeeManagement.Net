@@ -11,8 +11,6 @@ namespace EmployeeManagement.Api.NewFolder2
         public DateTime DateOfStartingWork { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }
-
-        //public List<Role> RoleList { get; set; }
         public List<EmployeeRole> RoleList { get; set; }
     }
 }
