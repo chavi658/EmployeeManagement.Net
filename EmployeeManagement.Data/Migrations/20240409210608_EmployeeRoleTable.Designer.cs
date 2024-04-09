@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240404195024_Init")]
-    partial class Init
+    [Migration("20240409210608_EmployeeRoleTable")]
+    partial class EmployeeRoleTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,7 +73,7 @@ namespace EmployeeManagement.Data.Migrations
                     b.Property<DateTime>("DateOfRoleEntry")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("EmployeeId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsManagerial")
@@ -110,7 +110,9 @@ namespace EmployeeManagement.Data.Migrations
                 {
                     b.HasOne("EmployeeManagement.Core.Entities.Employee", null)
                         .WithMany("RoleList")
-                        .HasForeignKey("EmployeeId");
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EmployeeManagement.Core.Entities.Employee", b =>

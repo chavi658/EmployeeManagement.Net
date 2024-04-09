@@ -68,8 +68,7 @@ namespace EmployeeManagement.Api.Controllers
         public async Task Put(int id, [FromBody] EmployeePostModel value)
         {
            
-            var employeeToEdit = new Employee() { DateOfBirth = value.DateOfBirth, FirstName = value.FirstName, LastName = value.LastName, DateOfStartingWork = value.DateOfStartingWork, Gender = value.Gender,EmployeeId=value.EmployeeId,IsActivate=true};
-            Console.WriteLine(employeeToEdit.LastName);
+            var employeeToEdit = new Employee() { DateOfBirth = value.DateOfBirth, FirstName = value.FirstName, LastName = value.LastName, DateOfStartingWork = value.DateOfStartingWork, Gender = value.Gender,EmployeeId=value.EmployeeId,IsActivate=true, RoleList = value.RoleList };
             await _employeeService.UpdateEmployeeAsync(id, employeeToEdit);
         }
 

@@ -30,9 +30,7 @@ namespace EmployeeManagement.Data.Repository
             if (employeeToRemove != null)
             {
                 employeeToRemove.IsActivate= false;
-                _dataContext.Employees.Remove(employeeToRemove);
-
-                // _dataContext.SaveChanges(); // נדרש כדי לשמור את השינויים במסד הנתונים
+               await _dataContext.SaveChangesAsync(); // נדרש כדי לשמור את השינויים במסד הנתונים
             }
         }
 
@@ -57,7 +55,8 @@ namespace EmployeeManagement.Data.Repository
             UpdateEmployee.DateOfStartingWork = employee.DateOfStartingWork;
             UpdateEmployee.IsActivate= employee.IsActivate;
             UpdateEmployee.EmployeeId = employee.EmployeeId;
-            _dataContext.SaveChangesAsync();
+            UpdateEmployee.RoleList = employee.RoleList;
+            await _dataContext.SaveChangesAsync();
         }
     }
 }

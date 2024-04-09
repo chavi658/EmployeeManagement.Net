@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240404195407_AddFieldInEmployeeRole")]
-    partial class AddFieldInEmployeeRole
+    [Migration("20240409211035_EmployeeRoleTableChanges")]
+    partial class EmployeeRoleTableChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,7 +73,7 @@ namespace EmployeeManagement.Data.Migrations
                     b.Property<DateTime>("DateOfRoleEntry")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("EmployeeId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsManagerial")
@@ -81,10 +81,6 @@ namespace EmployeeManagement.Data.Migrations
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EmployeeRoleId");
 
@@ -114,7 +110,9 @@ namespace EmployeeManagement.Data.Migrations
                 {
                     b.HasOne("EmployeeManagement.Core.Entities.Employee", null)
                         .WithMany("RoleList")
-                        .HasForeignKey("EmployeeId");
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EmployeeManagement.Core.Entities.Employee", b =>

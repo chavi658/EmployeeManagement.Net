@@ -41,14 +41,14 @@ namespace EmployeeManagement.Data.Repository
 
         public async Task<List<Role>> GetRolesAsync()
         {
-          return  await _dataContext.Roles./*Include(x=>x.Emp)*/ToListAsync();
+          return  await _dataContext.Roles.ToListAsync();
         }
 
         public  async Task UpdateRoleAsync(int RoleId, Role role)
         {
             var UpdateRole= await GetRoleByIdAsync(RoleId);
             UpdateRole.RoleName=role.RoleName;
-            //UpdateRole.IsManagerial=role.IsManagerial;
+            
           await  _dataContext.SaveChangesAsync();
         }
     }

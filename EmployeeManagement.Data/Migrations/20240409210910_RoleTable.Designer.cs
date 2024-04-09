@@ -4,6 +4,7 @@ using EmployeeManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240409210910_RoleTable")]
+    partial class RoleTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,6 +86,8 @@ namespace EmployeeManagement.Data.Migrations
 
                     b.HasIndex("EmployeeId");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("EmployeeRole");
                 });
 
@@ -110,11 +115,22 @@ namespace EmployeeManagement.Data.Migrations
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("EmployeeManagement.Core.Entities.Role", null)
+                        .WithMany("Emp")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EmployeeManagement.Core.Entities.Employee", b =>
                 {
                     b.Navigation("RoleList");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Core.Entities.Role", b =>
+                {
+                    b.Navigation("Emp");
                 });
 #pragma warning restore 612, 618
         }

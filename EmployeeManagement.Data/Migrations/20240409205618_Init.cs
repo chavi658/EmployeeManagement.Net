@@ -50,9 +50,9 @@ namespace EmployeeManagement.Data.Migrations
                     EmployeeRoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
                     DateOfRoleEntry = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsManagerial = table.Column<bool>(type: "bit", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: true)
+                    IsManagerial = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,7 +61,8 @@ namespace EmployeeManagement.Data.Migrations
                         name: "FK_EmployeeRole_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

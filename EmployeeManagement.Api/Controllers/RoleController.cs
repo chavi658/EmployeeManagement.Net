@@ -36,7 +36,7 @@ namespace EmployeeManagement.Api.Controllers
         public async Task Post([FromBody] RolePostModel value)
         {
 
-         var roleToAdd= new Role() { /*IsManagerial=value.IsManagerial*//*,*/RoleName=value.RoleName};
+         var roleToAdd= new Role() { RoleName=value.RoleName};
                 await   _roleService.AddRoleAsync(roleToAdd);
         }
 
@@ -44,7 +44,7 @@ namespace EmployeeManagement.Api.Controllers
         [HttpPut("{id}")]
         public async Task Put(int id, [FromBody] RolePostModel value)
         {
-            var roleToEdit = new Role() {  /*IsManagerial = value.IsManagerial,*/ RoleName = value.RoleName};
+            var roleToEdit = new Role() {RoleName = value.RoleName};
             await _roleService.UpdateRoleAsync(id, roleToEdit);
         }
 
